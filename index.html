@@ -40,7 +40,7 @@
 <body class="min-h-screen text-slate-800 flex flex-col justify-between overflow-y-auto">
 
     <!-- Intestazione grafica ripresa da laboratorio_di_chimica_memory_game_nome_vs_foto.html -->
-    <header class="bg-rose-600 text-white shadow-lg py-4 px-6 mb-6">
+    <header class="bg-orange-600 text-white shadow-lg py-4 px-6 mb-6">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="bg-white/10 p-2.5 rounded-2xl backdrop-blur-md">
@@ -48,12 +48,12 @@
                 </div>
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold tracking-tight">Memory Chimico: Nome &harr; Formula</h1>
-                    <p class="text-rose-100 text-xs sm:text-sm">Accoppia ogni nome alla sua formula!</p>
-                    <p class="text-rose-100 text-xs sm:text-sm">Clicca su una fotografia per ingrandirla.</p>
+                    <p class="text-orange-100 text-xs sm:text-sm">Accoppia ogni nome alla sua formula!</p>
+                    <p class="text-orange-100 text-xs sm:text-sm">Clicca su una fotografia per ingrandirla.</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <button onclick="resetGame()" class="bg-white text-rose-700 hover:bg-rose-50 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow-sm">
+                <button onclick="resetGame()" class="bg-white text-orange-700 hover:bg-orange-50 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-rotate-right"></i> Riavvia
                 </button>
             </div>
@@ -65,17 +65,17 @@
         <div class="bg-white/80 backdrop-blur-md border border-slate-200 shadow-sm rounded-2xl p-4 w-full max-w-2xl flex justify-around items-center mb-6">
             <div class="text-center">
                 <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Tentativi</span>
-                <span id="moves-count" class="text-xl sm:text-2xl font-extrabold text-rose-600">0</span>
+                <span id="moves-count" class="text-xl sm:text-2xl font-extrabold text-orange-600">0</span>
             </div>
             <div class="h-8 w-px bg-slate-200"></div>
             <div class="text-center">
                 <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Tempo</span>
-                <span id="timer" class="text-xl sm:text-2xl font-extrabold text-rose-600">00:00</span>
+                <span id="timer" class="text-xl sm:text-2xl font-extrabold text-orange-600">00:00</span>
             </div>
             <div class="h-8 w-px bg-slate-200"></div>
             <div class="text-center">
                 <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Coppie Trovate</span>
-                <span id="pairs-count" class="text-xl sm:text-2xl font-extrabold text-rose-600">0 / 10</span>
+                <span id="pairs-count" class="text-xl sm:text-2xl font-extrabold text-orange-600">0 / 10</span>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
      <!-- Modale Vittoria -->
     <div id="win-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
-            <div class="w-20 h-20 bg-rose-100 text-rose-600 rounded-3xl mx-auto flex items-center justify-center text-4xl mb-5 shadow-inner">
+            <div class="w-20 h-20 bg-orange-100 text-orange-600 rounded-3xl mx-auto flex items-center justify-center text-4xl mb-5 shadow-inner">
                 <i class="fa-solid fa-trophy"></i>
             </div>
             <h2 class="text-2xl font-extrabold text-slate-800 mb-2">Bravissimo!</h2>
@@ -104,7 +104,7 @@
                     <span id="final-moves" class="text-lg font-bold text-slate-800">0</span>
                 </div>
             </div>
-            <button onclick="resetGame(); closeWinModal();" class="w-full bg-rose-600 hover:bg-rose-700 text-white py-3 rounded-2xl font-bold transition shadow-md shadow-rose-200 flex items-center justify-center gap-2">
+            <button onclick="resetGame(); closeWinModal();" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-2xl font-bold transition shadow-md shadow-orange-200 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-rotate-right"></i> Gioca Ancora
             </button>
         </div>
@@ -235,12 +235,12 @@
                 inner.id = `card-inner-${index}`;
 
                 const front = document.createElement('div');
-                front.className = 'absolute inset-0 w-full h-full bg-gradient-to-br from-rose-600 to-rose-800 rounded-2xl flex flex-col items-center justify-center text-white backface-hidden shadow-inner border border-rose-500/40 p-2';
+                front.className = 'absolute inset-0 w-full h-full bg-gradient-to-br from-orange-600 to-orange-800 rounded-2xl flex flex-col items-center justify-center text-white backface-hidden shadow-inner border border-orange-500/40 p-2';
                 front.innerHTML = `
                     <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-2 backdrop-blur-sm">
-                        <i class="fa-solid fa-flask-vial text-rose-100 text-lg"></i>
+                        <i class="fa-solid fa-flask-vial text-orange-100 text-lg"></i>
                     </div>
-                    <span class="text-xs font-semibold tracking-wide text-rose-100 uppercase text-center">Memory Chimica</span>
+                    <span class="text-xs font-semibold tracking-wide text-orange-100 uppercase text-center">Memory Chimica</span>
                 `;
 
                 const back = document.createElement('div');
@@ -248,7 +248,7 @@
                 
                 if (card.type === 'name') {
                     back.innerHTML = `
-                        <div class="h-full w-full flex flex-col items-center justify-center p-2 text-center bg-rose-50/40 rounded-xl">
+                        <div class="h-full w-full flex flex-col items-center justify-center p-2 text-center bg-orange-50/40 rounded-xl">
                             <span class="text-sm sm:text-base font-extrabold text-slate-800">${card.content}</span>
                         </div>
                     `;
