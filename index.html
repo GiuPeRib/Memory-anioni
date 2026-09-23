@@ -111,12 +111,12 @@
     </div>
 
     <!-- Modale Zoom Immagine -->
-    <div id="image-zoom-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden cursor-pointer" onclick="closeImageZoom()">
+    <div id="formula-zoom-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden cursor-pointer" onclick="closeformulaZoom()">
         <div class="relative bg-white rounded-3xl p-6 max-w-2xl w-full flex flex-col items-center shadow-2xl" onclick="event.stopPropagation()">
-            <button onclick="closeImageZoom()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition">
+            <button onclick="closeformulaZoom()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
-            <img id="zoomed-image" src="" alt="Zoom Vetreria" class="max-h-[70vh] max-w-full object-contain rounded-2xl mb-4">
+            <img id="zoomed-formula" src="" alt="Zoom Vetreria" class="max-h-[70vh] max-w-full object-contain rounded-2xl mb-4">
             <p class="text-xs text-slate-400 mt-1">Clicca ovunque fuori per chiudere</p>
         </div>
     </div>
@@ -128,16 +128,16 @@
     <script>
         // Dati della vetreria con i file locali ereditati dal primo file
         const chemicalFormulaData = [
-            { id: 1, name: "Carbonati", image: "Acido.webp" },
-            { id: 2, name: "Solfati", image: "Anidride.png" },
-            { id: 3, name: "Nitrati", image: "Cloruro acilico.png" },
-            { id: 4, name: "Cloruri", image: "Bromuro acilico.svg" },
-            { id: 5, name: "Bromuri", image: "Alogenuro acilico.png" },
-            { id: 6, name: "Ioduri", image: "Ammide primaria.png" },
-            { id: 7, name: "Ossalati", image: "Ammide secondaria.png" },
-            { id: 8, name: "Borati", image: "ammide.png" },
-            { id: 9, name: "Fosfati", image: "Acido ossalico.png" },
-            { id: 10, name: "Ammonio", image: "Estere.png" }
+            { id: 1, name: "Carbonati", formula: "CO<sub>3</sub><sup>2-</sup>" },
+            { id: 2, name: "Solfati", formula: "SO<sub>4</sub><sup>2-</sup>" },
+            { id: 3, name: "Nitrati", formula: "NO<sub>3</sub><sup>-</sup>" },
+            { id: 4, name: "Cloruri", formula: "Cl<sup>-</sup>" },
+            { id: 5, name: "Bromuri", formula: "Br<sup>-</sup>" },
+            { id: 6, name: "Ioduri", formula: "I<sup>-</sup>" },
+            { id: 7, name: "Ossalati", formula: "C<sub>2</sub>O<sub>4</sub><sup>2-</sup>" },
+            { id: 8, name: "Borati", formula: "BO<sub>3</sub><sup>-</sup>" },
+            { id: 9, name: "Fosfati", formula: "PO<sub>4</sub><sup>3-</sup>" },
+            { id: 10, name: "Ammonio", formula: "NH<sub>4</sub><sup>+</sup>" }
         ];
 
         let cards = [];
@@ -154,14 +154,14 @@
             initGame();
         }
 
-        function loadSavedImages() {
+        function loadSavedformulas() {
             const saved = localStorage.getItem('chemicalFormula_photos_map');
             if (saved) {
                 try {
                     const customMap = JSON.parse(saved);
                     chemicalFormulaData.forEach(item => {
                         if (customMap[item.id] !== undefined) {
-                            item.image = customMap[item.id];
+                            item.formula = customMap[item.id];
                         }
                     });
                 } catch(e) {
@@ -171,7 +171,7 @@
         }
 
         window.onload = function() {
-            loadSavedImages();
+            loadSavedformulas();
             initGame();
         };
 
@@ -201,9 +201,9 @@
                 cards.push({
                     uniqueId: 'photo-' + item.id,
                     id: item.id,
-                    type: 'photo',
+                    type: 'formula',
                     name: item.name,
-                    content: item.image,
+                    content: item.formula,
                     isMatched: false
                 });
             });
@@ -256,17 +256,17 @@
                     if (card.content && card.content.trim() !== '') {
                         back.innerHTML = `
                             <div class="h-full w-full flex flex-col items-center justify-center p-1.5">
-                                <img src="${card.content}" alt="${card.name}" class="max-h-[90%] max-w-[90%] object-contain rounded-xl cursor-zoom-in hover:scale-105 transition duration-200" onclick="event.stopPropagation(); openImageZoom('${card.content}')" onerror="this.onerror=null; this.src='https://placehold.co/150x150/dcfce7/059669?text=Foto+Non+Trovata';" title="Clicca per ingrandire">
+                                <img src="${card.content}" alt="${card.name}" class="max-h-[90%] max-w-[90%] object-contain rounded-xl cursor-zoom-in hover:scale-105 transition duration-200" onclick="event.stopPropagation(); openformulaZoom('${card.content}')" onerror="this.onerror=null; this.src='https://placehold.co/150x150/dcfce7/059669?text=Foto+Non+Trovata';" title="Clicca per ingrandire">
                             </div>
                         `;
                     } else {
-                        back.innerHTML = `
-                            <div class="h-full w-full flex flex-col items-center justify-center text-center p-1 bg-slate-50 rounded-xl border border-dashed border-slate-300">
-                                <i class="fa-solid fa-camera text-slate-400 text-xl mb-1"></i>
-                                <span class="text-xs font-bold text-slate-700">${card.name}</span>
-                                <span class="text-[9px] text-yellow-600 font-medium mt-1">Inserisci Foto</span>
-                            </div>
-                        `;
+                    // Carta con la Formula Chimica (Ad apice e pedice)
+                    back.innerHTML = `
+                    <div class="h-full w-full flex flex-col items-center justify-center p-2 text-center bg-sky-50/40 rounded-xl">
+                        <span class="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-wider">${card.content}</span>
+                        <span class="text-[10px] font-semibold text-sky-700/60 uppercase tracking-widest mt-2">[Formula]</span>
+                    </div>
+                    `;
                     }
                 }
 
@@ -355,38 +355,13 @@
             }, 1000);
         }
 
-        function openConfigModal() {
-            const container = document.getElementById('config-items-container');
-            container.innerHTML = '';
-
-            chemicalFormulaData.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200/80';
-                div.innerHTML = `
-                    <div class="w-full sm:w-1/3">
-                        <span class="font-bold text-sm text-slate-800 block">${item.id}. ${item.name}</span>
-                    </div>
-                    <div class="w-full sm:w-2/3 flex items-center gap-2">
-                        <input type="text" id="photo-input-${item.id}" value="${item.image}" placeholder="Nome file o URL foto" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 bg-white">
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-
-            document.getElementById('config-modal').classList.remove('hidden');
-        }
-
-        function closeConfigModal() {
-            document.getElementById('config-modal').classList.add('hidden');
-        }
-
-        function saveCustomImages() {
+        function saveCustomformulas() {
             const customMap = {};
             chemicalFormulaData.forEach(item => {
                 const input = document.getElementById(`photo-input-${item.id}`);
                 if (input) {
-                    item.image = input.value.trim();
-                    customMap[item.id] = item.image;
+                    item.formula = input.value.trim();
+                    customMap[item.id] = item.formula;
                 }
             });
 
@@ -405,13 +380,13 @@
             document.getElementById('win-modal').classList.add('hidden');
         }
 
-        function openImageZoom(imgSrc) {
-            document.getElementById('zoomed-image').src = imgSrc;
-            document.getElementById('image-zoom-modal').classList.remove('hidden');
+        function openformulaZoom(imgSrc) {
+            document.getElementById('zoomed-formula').src = imgSrc;
+            document.getElementById('formula-zoom-modal').classList.remove('hidden');
         }
 
-        function closeImageZoom() {
-            document.getElementById('image-zoom-modal').classList.add('hidden');
+        function closeformulaZoom() {
+            document.getElementById('formula-zoom-modal').classList.add('hidden');
         }
     </script>
 
