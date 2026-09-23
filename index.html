@@ -253,21 +253,13 @@
                         </div>
                     `;
                 } else {
-                    if (card.content && card.content.trim() !== '') {
-                        back.innerHTML = `
-                            <div class="h-full w-full flex flex-col items-center justify-center p-1.5">
-                                <img src="${card.content}" alt="${card.name}" class="max-h-[90%] max-w-[90%] object-contain rounded-xl cursor-zoom-in hover:scale-105 transition duration-200" onclick="event.stopPropagation(); openformulaZoom('${card.content}')" onerror="this.onerror=null; this.src='https://placehold.co/150x150/dcfce7/059669?text=Foto+Non+Trovata';" title="Clicca per ingrandire">
-                            </div>
-                        `;
-                    } else {
                     // Carta con la Formula Chimica (Ad apice e pedice)
                     back.innerHTML = `
-                    <div class="h-full w-full flex flex-col items-center justify-center p-2 text-center bg-sky-50/40 rounded-xl">
-                        <span class="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-wider">${card.content}</span>
-                        <span class="text-[10px] font-semibold text-sky-700/60 uppercase tracking-widest mt-2">[Formula]</span>
-                    </div>
+                        <div class="h-full w-full flex flex-col items-center justify-center p-2 text-center bg-sky-50/40 rounded-xl">
+                            <span class="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-wider">${card.content}</span>
+                            <span class="text-[10px] font-semibold text-sky-700/60 uppercase tracking-widest mt-2">[Formula]</span>
+                        </div>
                     `;
-                    }
                 }
 
                 inner.appendChild(front);
